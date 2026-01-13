@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Upload - Salary Slip Management System</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <!-- Sidebar Header -->
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <h2 class="sidebar-title">Payroll System</h2>
+            </div>
+
+            <!-- Navigation Menu -->
+            <div class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+                <a href="workers.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-text">Workers</span>
+                </a>
+                <a href="salary-slips.html" class="nav-item">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span class="nav-text">Salary Slips</span>
+                </a>
+                <a href="excel-upload.html" class="nav-item active">
+                    <i class="fas fa-file-excel"></i>
+                    <span class="nav-text">Excel Upload</span>
+                </a>
+                <a href="reports.html" class="nav-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <span class="nav-text">Reports</span>
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span class="nav-text">Settings</span>
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="sidebar-toggle" onclick="toggleSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 class="page-title">Excel Upload</h1>
+                </div>
+                <div class="header-right">
+                    <select class="month-selector">
+                        <option value="2024-12">December 2024</option>
+                        <option value="2024-11">November 2024</option>
+                        <option value="2024-10">October 2024</option>
+                        <option value="2024-09">September 2024</option>
+                    </select>
+                    <div class="profile-dropdown">
+                        <button class="profile-btn">
+                            <div class="profile-avatar">A</div>
+                            <span>Admin</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Upload Instructions -->
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h3 class="card-title">Upload Instructions</h3>
+                    </div>
+                    <div class="card-body">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary-color); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">
+                                    1
+                                </div>
+                                <div>
+                                    <h4 style="margin-bottom: 4px;">Prepare Excel File</h4>
+                                    <p style="color: var(--text-light); margin: 0; font-size: 14px;">Use the sample format provided below</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--accent-color); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">
+                                    2
+                                </div>
+                                <div>
+                                    <h4 style="margin-bottom: 4px;">Upload File</h4>
+                                    <p style="color: var(--text-light); margin: 0; font-size: 14px;">Drag & drop or browse to select file</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--warning-color); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">
+                                    3
+                                </div>
+                                <div>
+                                    <h4 style="margin-bottom: 4px;">Review & Process</h4>
+                                    <p style="color: var(--text-light); margin: 0; font-size: 14px;">Validate data and process records</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- File Upload Section -->
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 24px;">
+                    <!-- Upload Area -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Upload Excel File</h3>
+                            <div style="display: flex; gap: 8px;">
+                                <button class="btn btn-sm btn-secondary">
+                                    <i class="fas fa-download"></i>
+                                    Download Sample
+                                </button>
+                                <button class="btn btn-sm btn-primary">
+                                    <i class="fas fa-question-circle"></i>
+                                    Help
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <!-- File Upload Area -->
+                            <div class="upload-area" id="uploadArea">
+                                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                                <div class="upload-text">Drag & Drop Excel File Here</div>
+                                <div class="upload-subtext">or click to browse files</div>
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-folder-open"></i>
+                                    Browse Files
+                                </button>
+                                <input type="file" id="fileInput" accept=".xlsx,.xls" style="display: none;">
+                            </div>
+                            
+                            <!-- File Requirements -->
+                            <div style="margin-top: 16px; padding: 12px; background: rgba(59, 130, 246, 0.1); border-radius: 6px; border-left: 4px solid var(--primary-color);">
+                                <h4 style="margin-bottom: 8px; color: var(--primary-color); font-size: 14px;">File Requirements:</h4>
+                                <ul style="margin: 0; padding-left: 16px; font-size: 13px; color: var(--text-light);">
+                                    <li>Excel format (.xlsx or .xls)</li>
+                                    <li>Maximum file size: 10MB</li>
+                                    <li>Must contain required columns (see sample format)</li>
+                                    <li>Data should start from row 2 (row 1 for headers)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upload History -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Recent Uploads</h3>
+                        </div>
+                        <div class="card-body">
+                            <div style="space-y: 12px;">
+                                <div style="padding: 12px; border: 1px solid var(--medium-gray); border-radius: 6px; margin-bottom: 12px;">
+                                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                                        <i class="fas fa-file-excel" style="color: var(--accent-color);"></i>
+                                        <span style="font-weight: 600; font-size: 14px;">salary_data_dec2024.xlsx</span>
+                                    </div>
+                                    <div style="font-size: 12px; color: var(--text-light); margin-bottom: 8px;">
+                                        Uploaded: 2 hours ago
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; font-size: 12px;">
+                                        <span style="color: var(--accent-color);">✓ 145 Success</span>
+                                        <span style="color: var(--danger-color);">✗ 5 Errors</span>
+                                    </div>
+                                </div>
+                                
+                                <div style="padding: 12px; border: 1px solid var(--medium-gray); border-radius: 6px; margin-bottom: 12px;">
+                                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                                        <i class="fas fa-file-excel" style="color: var(--accent-color);"></i>
+                                        <span style="font-weight: 600; font-size: 14px;">workers_nov2024.xlsx</span>
+                                    </div>
+                                    <div style="font-size: 12px; color: var(--text-light); margin-bottom: 8px;">
+                                        Uploaded: 1 week ago
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; font-size: 12px;">
+                                        <span style="color: var(--accent-color);">✓ 120 Success</span>
+                                        <span style="color: var(--danger-color);">✗ 2 Errors</span>
+                                    </div>
+                                </div>
+                                
+                                <div style="padding: 12px; border: 1px solid var(--medium-gray); border-radius: 6px;">
+                                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                                        <i class="fas fa-file-excel" style="color: var(--accent-color);"></i>
+                                        <span style="font-weight: 600; font-size: 14px;">attendance_oct2024.xlsx</span>
+                                    </div>
+                                    <div style="font-size: 12px; color: var(--text-light); margin-bottom: 8px;">
+                                        Uploaded: 2 weeks ago
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; font-size: 12px;">
+                                        <span style="color: var(--accent-color);">✓ 98 Success</span>
+                                        <span style="color: var(--danger-color);">✗ 0 Errors</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sample Excel Format -->
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h3 class="card-title">Sample Excel Format</h3>
+                        <button class="btn btn-sm btn-success">
+                            <i class="fas fa-download"></i>
+                            Download Sample File
+                        </button>
+                    </div>
+                    <div class="card-body" style="padding: 0;">
+                        <div class="table-container">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Worker ID</th>
+                                        <th>Worker Name</th>
+                                        <th>Month</th>
+                                        <th>Working Days</th>
+                                        <th>Daily Wage</th>
+                                        <th>Overtime Hours</th>
+                                        <th>Overtime Rate</th>
+                                        <th>Bonus</th>
+                                        <th>Deductions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>W001</td>
+                                        <td>Rajesh Kumar</td>
+                                        <td>December 2024</td>
+                                        <td>26</td>
+                                        <td>500</td>
+                                        <td>8</td>
+                                        <td>750</td>
+                                        <td>1000</td>
+                                        <td>0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>W002</td>
+                                        <td>Priya Sharma</td>
+                                        <td>December 2024</td>
+                                        <td>24</td>
+                                        <td>450</td>
+                                        <td>4</td>
+                                        <td>675</td>
+                                        <td>500</td>
+                                        <td>0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>W003</td>
+                                        <td>Amit Singh</td>
+                                        <td>December 2024</td>
+                                        <td>22</td>
+                                        <td>480</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>200</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upload Results (Hidden by default) -->
+                <div id="uploadResults" class="hidden">
+                    <!-- Results will be populated via JavaScript -->
+                </div>
+
+                <!-- Data Validation Rules -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Data Validation Rules</h3>
+                    </div>
+                    <div class="card-body">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                            <div>
+                                <h4 style="color: var(--primary-color); margin-bottom: 12px;">Required Fields</h4>
+                                <ul style="margin: 0; padding-left: 16px; color: var(--text-dark);">
+                                    <li>Worker ID (must exist in system)</li>
+                                    <li>Worker Name (text, max 100 chars)</li>
+                                    <li>Month (format: "Month YYYY")</li>
+                                    <li>Working Days (number, 1-31)</li>
+                                    <li>Daily Wage (number, > 0)</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--accent-color); margin-bottom: 12px;">Optional Fields</h4>
+                                <ul style="margin: 0; padding-left: 16px; color: var(--text-dark);">
+                                    <li>Overtime Hours (number, ≥ 0)</li>
+                                    <li>Overtime Rate (number, ≥ 0)</li>
+                                    <li>Bonus (number, ≥ 0)</li>
+                                    <li>Deductions (number, ≥ 0)</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--warning-color); margin-bottom: 12px;">Validation Rules</h4>
+                                <ul style="margin: 0; padding-left: 16px; color: var(--text-dark);">
+                                    <li>No duplicate Worker ID per month</li>
+                                    <li>Working days ≤ days in month</li>
+                                    <li>All numeric fields must be valid numbers</li>
+                                    <li>Worker must exist in workers database</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
